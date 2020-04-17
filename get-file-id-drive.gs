@@ -1,23 +1,21 @@
 function getListData() {
-  var settings = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings");
-  var foldername = settings.getRange("E1").getValue();
+  var settings = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings"); //Get Settings for folder name in Drive
+  var foldername = settings.getRange("CELL").getValue();
   
   var folders = DriveApp.getFoldersByName(foldername);
   var folder = folders.next();
   var contents = folder.getFiles();
   
-  var ss = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("list");
+  var ss = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("SHEET_NAME");
   ss.appendRow(['name','id']);
   
-  var file;
   var name;
-  var link;
-  var row; 
+  var id;
   while(contents.hasNext()){
     file = contents.next();
     name = file.getName();
-    link = file.getId();
-    ss.appendRow([name, link]);
+    id = file.getId();
+    ss.appendRow([name, id]);
   }
   
 }
